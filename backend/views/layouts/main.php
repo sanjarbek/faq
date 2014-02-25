@@ -19,26 +19,28 @@ AppAsset::register($this);
 		<meta charset="<?= Yii::$app->charset ?>"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title><?= Html::encode($this->title) ?></title>
-<?php $this->head() ?>
+		<?php $this->head() ?>
 	</head>
 	<body>
-			<?php $this->beginBody() ?>
+		<?php $this->beginBody() ?>
 		<div class="wrap">
 			<?php
 			NavBar::begin([
-				'brandLabel' => 'My Company',
+				'brandLabel' => 'Панель управления',
 				'brandUrl' => Yii::$app->homeUrl,
 				'options' => [
 					'class' => 'navbar-inverse navbar-fixed-top',
 				],
 			]);
 			$menuItems = [
-				['label' => 'Home', 'url' => ['/site/index']],
+				['label' => 'Вопросы', 'url' => ['/question']],
 			];
-			if (Yii::$app->user->isGuest) {
-				$menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-			} else {
-				$menuItems[] = ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout']];
+			if (Yii::$app->user->isGuest)
+			{
+				$menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
+			} else
+			{
+				$menuItems[] = ['label' => 'Выход (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout']];
 			}
 			echo Nav::widget([
 				'options' => ['class' => 'navbar-nav navbar-right'],
@@ -53,18 +55,21 @@ AppAsset::register($this);
 					'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 				])
 				?>
-<?= $content ?>
+				<?= $content ?>
 			</div>
 		</div>
 
 		<footer class="footer">
 			<div class="container">
-				<p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-				<p class="pull-right"><?= Yii::powered() ?></p>
+				<p class="pull-left">&copy; <?= date('Y') ?>, ОсОО "БизнесПравоИнфо"</p>
+				<div class="clearfix"> </div>
+				<p class="pull-left">Использование любых материалов, размещенных на сайте, разрещается при условии ссылки на сайт <a href="http://www.norma.kg">www.norma.kg</a></p>
+				<div class="clearfix"></div>
 			</div>
 		</footer>
+		<br />
 
-<?php $this->endBody() ?>
+		<?php $this->endBody() ?>
 	</body>
 </html>
 <?php $this->endPage() ?>

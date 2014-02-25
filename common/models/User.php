@@ -37,14 +37,16 @@ class User extends ActiveRecord implements IdentityInterface
 	const ROLE_MODERATOR = 1;
 	const ROLE_USER = 2;
 
-	public static function tableName() {
+	public static function tableName()
+	{
 		return 'users';
 	}
 
-	public function behaviors() {
+	public function behaviors()
+	{
 		return [
 			'timestamp' => [
-				'class' => 'yii\behaviors\AutoTimestamp',
+				'class' => 'yii\behaviors\TimestampBehavior',
 				'attributes' => [
 					ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
 					ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
@@ -59,7 +61,8 @@ class User extends ActiveRecord implements IdentityInterface
 	 * @param string|integer $id the ID to be looked for
 	 * @return IdentityInterface|null the identity object that matches the given ID.
 	 */
-	public static function findIdentity($id) {
+	public static function findIdentity($id)
+	{
 		return static::find($id);
 	}
 
@@ -69,21 +72,24 @@ class User extends ActiveRecord implements IdentityInterface
 	 * @param string $username
 	 * @return null|User
 	 */
-	public static function findByUsername($username) {
+	public static function findByUsername($username)
+	{
 		return static::find(['username' => $username, 'status' => static::STATUS_ACTIVE]);
 	}
 
 	/**
 	 * @return int|string|array current user ID
 	 */
-	public function getId() {
+	public function getId()
+	{
 		return $this->getPrimaryKey();
 	}
 
 	/**
 	 * @return string current user auth key
 	 */
-	public function getAuthKey() {
+	public function getAuthKey()
+	{
 		return $this->auth_key;
 	}
 
@@ -91,7 +97,8 @@ class User extends ActiveRecord implements IdentityInterface
 	 * @param string $authKey
 	 * @return boolean if auth key is valid for current user
 	 */
-	public function validateAuthKey($authKey) {
+	public function validateAuthKey($authKey)
+	{
 		return $this->getAuthKey() === $authKey;
 	}
 
@@ -99,11 +106,13 @@ class User extends ActiveRecord implements IdentityInterface
 	 * @param string $password password to validate
 	 * @return bool if password provided is valid for current user
 	 */
-	public function validatePassword($password) {
+	public function validatePassword($password)
+	{
 		return Security::validatePassword($password, $this->password_hash);
 	}
 
-	public function rules() {
+	public function rules()
+	{
 		return [
 			['status', 'default', 'value' => self::STATUS_ACTIVE],
 			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
@@ -115,14 +124,15 @@ class User extends ActiveRecord implements IdentityInterface
 			['email', 'filter', 'filter' => 'trim'],
 			['email', 'required'],
 			['email', 'email'],
-			['email', 'unique', 'message' => 'This email address has already been taken.', 'on' => 'signup'],
-			['email', 'exist', 'message' => 'There is no user with such email.', 'on' => 'requestPasswordResetToken'],
+			['email', 'unique', 'message' => 'Этот электронный адрес уже занят.', 'on' => 'signup'],
+			['email', 'exist', 'message' => 'Нету пользователя с таким электронным адресом.', 'on' => 'requestPasswordResetToken'],
 			['password', 'required'],
 			['password', 'string', 'min' => 6],
 		];
 	}
 
-	public function scenarios() {
+	public function scenarios()
+	{
 		return [
 			'signup' => ['username', 'email', 'password', '!status', '!role'],
 			'resetPassword' => ['password'],
@@ -130,12 +140,35 @@ class User extends ActiveRecord implements IdentityInterface
 		];
 	}
 
-	public function beforeSave($insert) {
-		if (parent::beforeSave($insert)) {
-			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') && !empty($this->password)) {
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'id' => 'ID',
+			'firstname' => 'Имя',
+			'secondname' => 'Фамилия',
+			'username' => 'Логин',
+			'password' => 'Пароль',
+			'email' => 'Электронный адрес',
+			'status' => 'Статус',
+			'role' => 'Роль',
+			'created_at' => 'Создан',
+			'updated_at' => 'Редактирован',
+		];
+	}
+
+	public function beforeSave($insert)
+	{
+		if (parent::beforeSave($insert))
+		{
+			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') && !empty($this->password))
+			{
 				$this->password_hash = Security::generatePasswordHash($this->password);
 			}
-			if ($this->isNewRecord) {
+			if ($this->isNewRecord)
+			{
 				$this->auth_key = Security::generateRandomKey();
 			}
 			return true;
