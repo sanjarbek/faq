@@ -131,4 +131,15 @@ class Question extends \yii\db\ActiveRecord
 		return $tagsList;
 	}
 
+	public static function getAutoCompletion()
+	{
+		$titles = Question::find()->select(['title'])->all();
+		$titlesList = [];
+		foreach ($titles as $title)
+		{
+			$titlesList[] = $title->title;
+		}
+		return $titlesList;
+	}
+
 }

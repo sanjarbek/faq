@@ -80,20 +80,20 @@ class QuestionController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
-
-		if ($model->load($_POST) && $model->save())
-		{
-			return $this->redirect(['view', 'id' => $model->id]);
-		} else
-		{
-			return $this->render('update', [
-						'model' => $model,
-			]);
-		}
-	}
+//	public function actionUpdate($id)
+//	{
+//		$model = $this->findModel($id);
+//
+//		if ($model->load($_POST) && $model->save())
+//		{
+//			return $this->redirect(['view', 'id' => $model->id]);
+//		} else
+//		{
+//			return $this->render('update', [
+//						'model' => $model,
+//			]);
+//		}
+//	}
 
 	/**
 	 * Deletes an existing Question model.
@@ -101,11 +101,11 @@ class QuestionController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionDelete($id)
-	{
-		$this->findModel($id)->delete();
-		return $this->redirect(['index']);
-	}
+//	public function actionDelete($id)
+//	{
+//		$this->findModel($id)->delete();
+//		return $this->redirect(['index']);
+//	}
 
 	/**
 	 * Finds the Question model based on its primary key value.

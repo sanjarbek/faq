@@ -14,6 +14,7 @@ use yii\web\VerbFilter;
  */
 class QuestionController extends Controller
 {
+
 	public function behaviors()
 	{
 		return [
@@ -36,8 +37,8 @@ class QuestionController extends Controller
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
 		return $this->render('index', [
-			'dataProvider' => $dataProvider,
-			'searchModel' => $searchModel,
+					'dataProvider' => $dataProvider,
+					'searchModel' => $searchModel,
 		]);
 	}
 
@@ -49,7 +50,7 @@ class QuestionController extends Controller
 	public function actionView($id)
 	{
 		return $this->render('view', [
-			'model' => $this->findModel($id),
+					'model' => $this->findModel($id),
 		]);
 	}
 
@@ -58,18 +59,20 @@ class QuestionController extends Controller
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate()
-	{
-		$model = new Question;
-
-		if ($model->load($_POST) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
-			return $this->render('create', [
-				'model' => $model,
-			]);
-		}
-	}
+//	public function actionCreate()
+//	{
+//		$model = new Question;
+//
+//		if ($model->load($_POST) && $model->save())
+//		{
+//			return $this->redirect(['view', 'id' => $model->id]);
+//		} else
+//		{
+//			return $this->render('create', [
+//						'model' => $model,
+//			]);
+//		}
+//	}
 
 	/**
 	 * Updates an existing Question model.
@@ -77,18 +80,18 @@ class QuestionController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
-
-		if ($model->load($_POST) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
-			return $this->render('update', [
-				'model' => $model,
-			]);
-		}
-	}
+//	public function actionUpdate($id)
+//	{
+//		$model = $this->findModel($id);
+//
+//		if ($model->load($_POST) && $model->save()) {
+//			return $this->redirect(['view', 'id' => $model->id]);
+//		} else {
+//			return $this->render('update', [
+//				'model' => $model,
+//			]);
+//		}
+//	}
 
 	/**
 	 * Deletes an existing Question model.
@@ -96,11 +99,11 @@ class QuestionController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionDelete($id)
-	{
-		$this->findModel($id)->delete();
-		return $this->redirect(['index']);
-	}
+//	public function actionDelete($id)
+//	{
+//		$this->findModel($id)->delete();
+//		return $this->redirect(['index']);
+//	}
 
 	/**
 	 * Finds the Question model based on its primary key value.
@@ -111,10 +114,13 @@ class QuestionController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if ($id !== null && ($model = Question::find($id)) !== null) {
+		if ($id !== null && ($model = Question::find($id)) !== null)
+		{
 			return $model;
-		} else {
+		} else
+		{
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
+
 }

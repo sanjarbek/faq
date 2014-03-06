@@ -10,9 +10,13 @@ use yii\grid\GridView;
  */
 $this->title = 'Вопросы';
 $this->params['breadcrumbs'][] = $this->title;
-
-echo $this->render('_filter', ['model' => $searchModel]);
 ?>
+<p>
+	<?php
+	echo$this->render('_filter', ['model' => $searchModel])
+	?>
+</p>
+
 <div class="question-index panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -23,19 +27,46 @@ echo $this->render('_filter', ['model' => $searchModel]);
 	echo GridView::widget([
 		'dataProvider' => $dataProvider,
 //		'filterModel' => $searchModel,
+		'layout' => '{items}{pager}{summary}',
+		'tableOptions' => [
+			'class' => 'table',
+		],
+		'showHeader' => false,
+		'pager' => [
+			'class' => 'yii\widgets\LinkPager',
+			'maxButtonCount' => 5,
+			'options' => [
+				'class' => 'pagination pagination-sm pull-right',
+				'style' => 'margin-right: 10px; margin-top: 0px; margin-bottom: 5px;',
+			]
+		],
 		'columns' => [
-			['class' => 'yii\grid\SerialColumn'],
-			'id',
-			'title',
+			[
+				'class' => 'yii\grid\SerialColumn',
+			],
+//			'id',
+//			'title',
 			'content:ntext',
-			'fio',
-			'email:email',
+//			'fio',
+//			'email:email',
 			// 'answer:ntext',
 			// 'created_at',
 			// 'updated_at',
-			['class' => 'yii\grid\ActionColumn'],
+			[
+				'class' => 'yii\grid\ActionColumn',
+				'template' => '{view}',
+				'buttons' => [
+					'view' => function($url, $model)
+					{
+						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $url, [
+									'title' => Yii::t('yii', 'View'),
+						]);
+					}
+				],
+			],
 		],
 	]);
 	?>
+	<div class="clearfix"></div>
 
 </div>
