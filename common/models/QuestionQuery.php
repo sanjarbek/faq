@@ -11,6 +11,7 @@ use common\models\Question;
  */
 class QuestionQuery extends Model
 {
+
 	public $id;
 	public $title;
 	public $content;
@@ -52,12 +53,18 @@ class QuestionQuery extends Model
 			'query' => $query,
 		]);
 
-		if (!($this->load($params) && $this->validate())) {
+		if (!($this->load($params) && $this->validate()))
+		{
 			return $dataProvider;
 		}
 
+		$values = explode(' ', $this->title);
+		foreach ($values as $value)
+		{
+			$query->orWhere(['like', 'title', $value]);
+		}
+
 		$this->addCondition($query, 'id');
-		$this->addCondition($query, 'title', true);
 		$this->addCondition($query, 'content', true);
 		$this->addCondition($query, 'fio', true);
 		$this->addCondition($query, 'email', true);
@@ -70,13 +77,17 @@ class QuestionQuery extends Model
 	protected function addCondition($query, $attribute, $partialMatch = false)
 	{
 		$value = $this->$attribute;
-		if (trim($value) === '') {
+		if (trim($value) === '')
+		{
 			return;
 		}
-		if ($partialMatch) {
+		if ($partialMatch)
+		{
 			$query->andWhere(['like', $attribute, $value]);
-		} else {
+		} else
+		{
 			$query->andWhere([$attribute => $value]);
 		}
 	}
+
 }
