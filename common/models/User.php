@@ -117,7 +117,12 @@ class User extends ActiveRecord implements IdentityInterface
 			['status', 'default', 'value' => self::STATUS_ACTIVE],
 			['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
 			['role', 'default', 'value' => self::ROLE_USER],
-			['role', 'in', 'range' => [self::ROLE_USER]],
+			['role', 'in', 'range' => [
+					self::ROLE_USER,
+					self::ROLE_MODERATOR,
+					self::ROLE_ADMIN
+				]
+			],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
 			['username', 'string', 'min' => 2, 'max' => 255],
@@ -134,7 +139,9 @@ class User extends ActiveRecord implements IdentityInterface
 	public function scenarios()
 	{
 		return [
-			'signup' => ['username', 'email', 'password', '!status', '!role'],
+			'default' => [],
+			'registration' => ['username', 'firstname', 'secondname', 'password', 'email', 'role', 'status'],
+			'updating' => ['username', 'email', 'firstname', 'secondname', 'status', 'role'],
 			'resetPassword' => ['password'],
 			'requestPasswordResetToken' => ['email'],
 		];
@@ -174,6 +181,40 @@ class User extends ActiveRecord implements IdentityInterface
 			return true;
 		}
 		return false;
+	}
+
+	public static function getRoleOptions()
+	{
+		return [
+			self::ROLE_ADMIN => 'Администратор',
+			self::ROLE_MODERATOR => 'Модератор',
+			self::ROLE_USER => 'Пользователь',
+		];
+	}
+
+	public function getRoleText()
+	{
+		$roleOptions = self::getRoleOptions();
+		return isset($roleOptions[$this->role]) ? $roleOptions[$this->role] : 'Нету такой роли ' . $this->role;
+	}
+
+	public static function getStatusOptions()
+	{
+		return [
+			self::STATUS_DELETED => 'Удален',
+			self::STATUS_ACTIVE => 'Активен',
+		];
+	}
+
+	public function getStatusText()
+	{
+		$statusOptions = self::getStatusOptions();
+		return isset($statusOptions[$this->status]) ? $statusOptions[$this->status] : 'Нету такого статуса ' . $this->status;
+	}
+
+	public function getFullname()
+	{
+		return $this->secondname . ' ' . $this->firstname;
 	}
 
 }

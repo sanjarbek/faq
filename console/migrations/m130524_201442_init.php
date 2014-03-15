@@ -5,16 +5,18 @@ use yii\db\Schema;
 class m130524_201442_init extends \yii\db\Migration
 {
 
-	public function up() {
+	public function up()
+	{
 		$tableOptions = null;
-		if ($this->db->driverName === 'mysql') {
+		if ($this->db->driverName === 'mysql')
+		{
 			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
 		}
 
 		$this->createTable('users', [
 			'id' => Schema::TYPE_PK,
 			'firstname' => Schema::TYPE_STRING . '(20) NOT NULL',
-			'second' => Schema::TYPE_STRING . '(20) NOT NULL',
+			'secondname' => Schema::TYPE_STRING . '(20) NOT NULL',
 			'username' => Schema::TYPE_STRING . ' NOT NULL',
 			'auth_key' => Schema::TYPE_STRING . '(32) NOT NULL',
 			'password_hash' => Schema::TYPE_STRING . ' NOT NULL',
@@ -27,7 +29,8 @@ class m130524_201442_init extends \yii\db\Migration
 				], $tableOptions);
 	}
 
-	public function down() {
+	public function down()
+	{
 		$this->dropTable('users');
 	}
 

@@ -32,7 +32,7 @@ use kartik\widgets\Typeahead;
 				'template' => '<hr style="white-space: normal; margin: 1px">
 					<p>{{value}}</p>',
 				'engine' => 'Hogan',
-				'limit' => 10,
+				'limit' => 20,
 			]
 		]
 	]);

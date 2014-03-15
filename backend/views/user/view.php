@@ -7,40 +7,57 @@ use yii\widgets\DetailView;
  * @var yii\web\View $this
  * @var common\models\User $model
  */
-
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = $model->fullname;
+$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="panel-title">
+				Полная информация
 
-	<h1><?= Html::encode($this->title) ?></h1>
+				<?php
+				echo Html::a('<span class="glyphicon glyphicon-remove"></strong>', ['delete', 'id' => $model->id], [
+					'class' => 'pull-right',
+					'data-confirm' => Yii::t('app', 'Are you sure to delete this item?'),
+					'data-method' => 'post',
+				]);
+				?>
 
-	<p>
-		<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-		<?php echo Html::a('Delete', ['delete', 'id' => $model->id], [
-			'class' => 'btn btn-danger',
-			'data-confirm' => Yii::t('app', 'Are you sure to delete this item?'),
-			'data-method' => 'post',
-		]); ?>
-	</p>
-
-	<?php echo DetailView::widget([
-		'model' => $model,
-		'attributes' => [
-			'id',
-			'firstname',
-			'second',
-			'username',
-			'auth_key',
-			'password_hash',
-			'password_reset_token',
-			'email:email',
-			'role',
-			'status',
-			'created_at',
-			'updated_at',
-		],
-	]); ?>
-
+				<?= Html::a('<span class="glyphicon glyphicon-edit"></strong>', ['update', 'id' => $model->id], ['class' => 'pull-right', 'style' => 'margin-right: 20px']) ?>
+			</div>
+		</div>
+		<?php
+		echo DetailView::widget([
+			'model' => $model,
+			'attributes' => [
+				'id',
+				'firstname',
+				'secondname',
+				'username',
+				'auth_key',
+				'password_hash',
+				'password_reset_token',
+				'email:email',
+				[
+					'name' => 'role',
+					'value' => $model->getRoleText()
+				],
+				[
+					'name' => 'status',
+					'value' => $model->getStatusText()
+				],
+				[
+					'name' => 'created_at',
+					'value' => date('d.m.Y h:i:s', $model->created_at)
+				],
+				[
+					'name' => 'updated_at',
+					'value' => date('d.m.Y h:i:s', $model->created_at)
+				],
+			],
+		]);
+		?>
+	</div>
 </div>

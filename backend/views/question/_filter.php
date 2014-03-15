@@ -27,7 +27,7 @@ use kartik\widgets\Typeahead;
 		'dataset' => [
 			[
 				'local' => ['a', 'b', 'c'],
-				'limit' => 10
+				'limit' => 20
 			]
 		]
 	]);

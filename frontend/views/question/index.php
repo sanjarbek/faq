@@ -47,7 +47,23 @@ $this->params['breadcrumbs'][] = $this->title;
 //			'id',
 //			'title',
 			'content:ntext',
-//			'fio',
+			[
+				'attribute' => 'tags',
+				'format' => 'html',
+				'value' => function($data)
+				{
+					$links = explode(',', $data->tags);
+					$output = [];
+					foreach ($links as $link)
+					{
+						$output[] = Html::a($link, \yii::$app->controller->createUrl([
+											'index',
+											'QuestionQuery[tags]' => $link,
+						]));
+					}
+					return implode(', ', $output);
+				}
+			],
 //			'email:email',
 			// 'answer:ntext',
 			// 'created_at',

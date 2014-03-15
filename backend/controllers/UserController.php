@@ -14,6 +14,7 @@ use yii\web\VerbFilter;
  */
 class UserController extends Controller
 {
+
 	public function behaviors()
 	{
 		return [
@@ -36,8 +37,8 @@ class UserController extends Controller
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
 		return $this->render('index', [
-			'dataProvider' => $dataProvider,
-			'searchModel' => $searchModel,
+					'dataProvider' => $dataProvider,
+					'searchModel' => $searchModel,
 		]);
 	}
 
@@ -49,7 +50,7 @@ class UserController extends Controller
 	public function actionView($id)
 	{
 		return $this->render('view', [
-			'model' => $this->findModel($id),
+					'model' => $this->findModel($id),
 		]);
 	}
 
@@ -61,12 +62,15 @@ class UserController extends Controller
 	public function actionCreate()
 	{
 		$model = new User;
+		$model->scenario = 'registration';
 
-		if ($model->load($_POST) && $model->save()) {
+		if ($model->load($_POST) && $model->save())
+		{
 			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
+		} else
+		{
 			return $this->render('create', [
-				'model' => $model,
+						'model' => $model,
 			]);
 		}
 	}
@@ -80,12 +84,15 @@ class UserController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+		$model->scenario = 'updating';
 
-		if ($model->load($_POST) && $model->save()) {
+		if ($model->load($_POST) && $model->save())
+		{
 			return $this->redirect(['view', 'id' => $model->id]);
-		} else {
+		} else
+		{
 			return $this->render('update', [
-				'model' => $model,
+						'model' => $model,
 			]);
 		}
 	}
@@ -98,7 +105,9 @@ class UserController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->findModel($id)->delete();
+		$model = $this->findModel($id);
+		$model->status = User::STATUS_DELETED;
+		$model->save();
 		return $this->redirect(['index']);
 	}
 
@@ -111,10 +120,13 @@ class UserController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if ($id !== null && ($model = User::find($id)) !== null) {
+		if ($id !== null && ($model = User::find($id)) !== null)
+		{
 			return $model;
-		} else {
+		} else
+		{
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
+
 }

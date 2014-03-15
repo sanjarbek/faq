@@ -11,9 +11,10 @@ use common\models\User;
  */
 class UserQuery extends Model
 {
+
 	public $id;
 	public $firstname;
-	public $second;
+	public $secondname;
 	public $username;
 	public $auth_key;
 	public $password_hash;
@@ -28,7 +29,7 @@ class UserQuery extends Model
 	{
 		return [
 			[['id', 'role', 'status', 'created_at', 'updated_at'], 'integer'],
-			[['firstname', 'second', 'username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+			[['firstname', 'secondname', 'username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
 		];
 	}
 
@@ -40,7 +41,7 @@ class UserQuery extends Model
 		return [
 			'id' => 'ID',
 			'firstname' => 'Имя',
-			'second' => 'Second',
+			'secondname' => 'Фамилия',
 			'username' => 'Логин',
 			'auth_key' => 'Auth Key',
 			'password_hash' => 'Password Hash',
@@ -60,7 +61,8 @@ class UserQuery extends Model
 			'query' => $query,
 		]);
 
-		if (!($this->load($params) && $this->validate())) {
+		if (!($this->load($params) && $this->validate()))
+		{
 			return $dataProvider;
 		}
 
@@ -82,13 +84,17 @@ class UserQuery extends Model
 	protected function addCondition($query, $attribute, $partialMatch = false)
 	{
 		$value = $this->$attribute;
-		if (trim($value) === '') {
+		if (trim($value) === '')
+		{
 			return;
 		}
-		if ($partialMatch) {
+		if ($partialMatch)
+		{
 			$query->andWhere(['like', $attribute, $value]);
-		} else {
+		} else
+		{
 			$query->andWhere([$attribute => $value]);
 		}
 	}
+
 }

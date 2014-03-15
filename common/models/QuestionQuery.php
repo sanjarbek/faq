@@ -17,6 +17,7 @@ class QuestionQuery extends Model
 	public $content;
 	public $fio;
 	public $email;
+	public $tags;
 	public $answer;
 	public $created_at;
 	public $updated_at;
@@ -25,7 +26,7 @@ class QuestionQuery extends Model
 	{
 		return [
 			[['id'], 'integer'],
-			[['title', 'content', 'fio', 'email', 'answer', 'created_at', 'updated_at'], 'safe'],
+			[['title', 'content', 'fio', 'tags', 'answer', 'created_at', 'updated_at'], 'safe'],
 		];
 	}
 
@@ -58,16 +59,17 @@ class QuestionQuery extends Model
 			return $dataProvider;
 		}
 
-		$values = explode(' ', $this->title);
-		foreach ($values as $value)
-		{
-			$query->orWhere(['like', 'title', $value]);
-		}
+		$values = explode(' ', trim($this->title));
+		if ($values !== null)
+			foreach ($values as $value)
+			{
+				$query->orWhere(['like', 'title', $value]);
+			}
 
 		$this->addCondition($query, 'id');
 		$this->addCondition($query, 'content', true);
 		$this->addCondition($query, 'fio', true);
-		$this->addCondition($query, 'email', true);
+		$this->addCondition($query, 'tags');
 		$this->addCondition($query, 'answer', true);
 		$this->addCondition($query, 'created_at');
 		$this->addCondition($query, 'updated_at');
