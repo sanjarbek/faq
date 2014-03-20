@@ -50,6 +50,7 @@ class QuestionQuery extends Model
 	public function search($params)
 	{
 		$query = Question::find();
+
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 		]);
@@ -59,20 +60,27 @@ class QuestionQuery extends Model
 			return $dataProvider;
 		}
 
-		$values = explode(' ', trim($this->title));
-		if ($values !== null)
-			foreach ($values as $value)
-			{
-				$query->orWhere(['like', 'title', $value]);
-			}
+		$test = Question::find()->where(['title' => $this->title])->one();
 
-		$this->addCondition($query, 'id');
-		$this->addCondition($query, 'content', true);
-		$this->addCondition($query, 'fio', true);
-		$this->addCondition($query, 'tags');
-		$this->addCondition($query, 'answer', true);
-		$this->addCondition($query, 'created_at');
-		$this->addCondition($query, 'updated_at');
+		if ($test)
+		{
+			$this->addCondition($query, 'title', true);
+		} else
+		{
+			$values = explode(' ', trim($this->title));
+			if ($values !== null)
+				foreach ($values as $value)
+				{
+					$query->orWhere(['like', 'title', $value]);
+				}
+		}
+//		$this->addCondition($query, 'id');
+//		$this->addCondition($query, 'content', true);
+//		$this->addCondition($query, 'fio', true);
+//		$this->addCondition($query, 'tags');
+//		$this->addCondition($query, 'answer', true);
+//		$this->addCondition($query, 'created_at');
+//		$this->addCondition($query, 'updated_at');
 		return $dataProvider;
 	}
 
