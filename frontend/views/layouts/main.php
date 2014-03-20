@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 
@@ -19,6 +18,7 @@ AppAsset::register($this);
 	<head>
 		<meta charset="<?= Yii::$app->charset ?>"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="google-site-verification" content="eXkdQ4O6ERmoDQKJhkxNvsTdXzT39C77FdEVbyO5b-M" />
 		<title><?= Html::encode($this->title) ?></title>
 		<?php $this->head() ?>
 	</head>
