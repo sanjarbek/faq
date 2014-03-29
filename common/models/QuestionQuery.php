@@ -69,15 +69,32 @@ class QuestionQuery extends Model
 		{
 			$values = explode(' ', trim($this->title));
 			if ($values !== null)
+			{
 				foreach ($values as $value)
 				{
-					$query->orWhere(['like', 'title', ' ' . $value . ' ']);
+					if (trim($value) != '')
+					{
+						$query->orWhere(['like', 'title', ' ' . $value . ' ']);
+//						$query->orWhere(['like', 'title', $value]);
+					}
 				}
+			}
 		}
+//		if ($this->tags != '')
+//		{
+//			$values = explode(' ', trim($this->tags));
+//			if ($values !== null)
+//			{
+//				foreach ($values as $value)
+//				{
+//					$query->andWhere(['like', 'tags', ' ' . $value . ' ']);
+//				}
+//			}
+//		}
 //		$this->addCondition($query, 'id');
 //		$this->addCondition($query, 'content', true);
 //		$this->addCondition($query, 'fio', true);
-//		$this->addCondition($query, 'tags');
+		$this->addCondition($query, 'tags', true);
 //		$this->addCondition($query, 'answer', true);
 //		$this->addCondition($query, 'created_at');
 //		$this->addCondition($query, 'updated_at');
@@ -127,3 +144,4 @@ class QuestionQuery extends Model
 	}
 
 }
+

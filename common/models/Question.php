@@ -105,7 +105,6 @@ class Question extends \yii\db\ActiveRecord
 	{
 		parent::afterSave($insert);
 		(new Tag())->updateFrequency($this->_oldTags, $this->tags);
-		\yii::warning('Hello world!!!');
 	}
 
 	public function afterDelete()
@@ -140,6 +139,20 @@ class Question extends \yii\db\ActiveRecord
 			$titlesList[] = $title->title;
 		}
 		return $titlesList;
+	}
+
+	public function getTagsLinks()
+	{
+		$links = explode(',', $this->tags);
+		$output = [];
+		foreach ($links as $link)
+		{
+			$output[] = \yii\helpers\Html::a($link, \yii::$app->controller->createUrl([
+								'index',
+								'QuestionQuery[tags]' => $link,
+			]));
+		}
+		return implode(', ', $output);
 	}
 
 }
