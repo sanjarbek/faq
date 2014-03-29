@@ -8,7 +8,7 @@ $this->title = 'Консультант';
 	<div class="body-content">
 
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12 well">
 				<div class="jumbotron">
 					<h1>Добро пожаловать на наш сайт!</h1>
 					<p>Здесь Вы можете найти ответы на часто задаваемые и актуальные вопросы. </p>
