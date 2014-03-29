@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</tr>
 		<tr>
 			<th>Телефон/Факс:</th>
-			<td>+996 (312) 365 730</td>
+			<td>+996 (312) 365730, +996 (777) 996773</td>
 		</tr>
 		<tr>
 			<th>Email:</th>

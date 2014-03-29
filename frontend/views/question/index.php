@@ -44,30 +44,15 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'class' => 'yii\grid\SerialColumn',
 			],
-//			'id',
-//			'title',
-			'content:ntext',
 			[
-				'attribute' => 'tags',
+				'attribute' => 'content',
 				'format' => 'html',
 				'value' => function($data)
 				{
-					$links = explode(',', $data->tags);
-					$output = [];
-					foreach ($links as $link)
-					{
-						$output[] = Html::a($link, \yii::$app->controller->createUrl([
-											'index',
-											'QuestionQuery[tags]' => $link,
-						]));
-					}
-					return implode(', ', $output);
+					$links = $data->content . '<br />' . implode(' ', $data->getTagLinks());
+					return $links;
 				}
 			],
-//			'email:email',
-			// 'answer:ntext',
-			// 'created_at',
-			// 'updated_at',
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => '{view}',

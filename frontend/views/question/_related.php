@@ -21,7 +21,15 @@ use yii\grid\GridView;
 			[
 				'class' => 'yii\grid\SerialColumn',
 			],
-			'content:ntext',
+			[
+				'attribute' => 'content',
+				'format' => 'html',
+				'value' => function($data)
+				{
+					$links = $data->content . '<br />' . implode(' ', $data->getTagLinks());
+					return $links;
+				}
+			],
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => '{view}',

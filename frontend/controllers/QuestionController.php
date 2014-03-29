@@ -40,7 +40,7 @@ class QuestionController extends Controller
 		{
 			return $this->redirect([
 						'view',
-						'id' => $posts[0]->id,
+						'title' => $posts[0]->title,
 			]);
 		}
 		return $this->render('index', [
