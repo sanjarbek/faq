@@ -35,7 +35,15 @@ class QuestionController extends Controller
 	{
 		$searchModel = new QuestionQuery;
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+//		$dataProvider = $searchModel->searchAll(Yii::$app->request->getQueryParams());
+		$posts = $dataProvider->getModels();
+		if (count($posts) == 1)
+		{
+			return $this->redirect([
+						'view',
+						'id' => $posts[0]->id,
+			]);
+		}
 		return $this->render('index', [
 					'dataProvider' => $dataProvider,
 					'searchModel' => $searchModel,
@@ -49,8 +57,11 @@ class QuestionController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->findModel($id);
+		$model->viewed = $model->viewed + 1;
+		$model->save(false);
 		return $this->render('view', [
-					'model' => $this->findModel($id),
+					'model' => $model,
 		]);
 	}
 
