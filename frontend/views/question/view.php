@@ -27,5 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]);
 	?>
-
+</div>
+<div class="related-questions">
+	<?php
+	echo $this->render('/question/_related', [
+		'tags' => $model->tags,
+		'count' => 10]
+	);
+	?>
 </div>

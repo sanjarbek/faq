@@ -74,9 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
 				'buttons' => [
 					'view' => function($url, $model)
 					{
-						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $url, [
+						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $model->getUrl(), [
 									'title' => Yii::t('yii', 'View'),
 						]);
+//						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $url, [
+//									'title' => Yii::t('yii', 'View'),
+//						]);
 					}
 				],
 			],

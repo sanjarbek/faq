@@ -51,12 +51,13 @@ class QuestionController extends Controller
 
 	/**
 	 * Displays a single Question model.
-	 * @param integer $id
+	 * @param string $id
 	 * @return mixed
 	 */
-	public function actionView($id)
+	public function actionView($title)
 	{
-		$model = $this->findModel($id);
+//		$model = $this->findModel($id);
+		$model = $this->findModelByTitle($title);
 		$model->viewed = $model->viewed + 1;
 		$model->save(false);
 		return $this->render('view', [
@@ -129,7 +130,18 @@ class QuestionController extends Controller
 			return $model;
 		} else
 		{
-			throw new NotFoundHttpException('The requested page does not exist.');
+			throw new NotFoundHttpException('Запращиваемая страница не найдена.');
+		}
+	}
+
+	protected function findModelByTitle($title)
+	{
+		if ($title !== null && ($model = Question::find()->where(['title' => $title])->one()) !== null)
+		{
+			return $model;
+		} else
+		{
+			throw new NotFoundHttpException('Запращиваемая страница не найдена.');
 		}
 	}
 

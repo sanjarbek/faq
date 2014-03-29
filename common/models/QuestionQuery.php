@@ -127,6 +127,31 @@ class QuestionQuery extends Model
 		return $dataProvider;
 	}
 
+	public static function getRelatedQuestions($tags = '', $count = 10)
+	{
+		$query = Question::find()->limit($count);
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+
+		if ($tags != '')
+		{
+			$values = explode(',', trim($tags));
+			if (count($values) > 0)
+			{
+				foreach ($values as $value)
+				{
+					$query->orWhere(['like', 'tags', $value]);
+				}
+			}
+		}
+
+		$dataProvider->setPagination(false);
+
+		return $dataProvider;
+	}
+
 	protected function addCondition($query, $attribute, $partialMatch = false)
 	{
 		$value = $this->$attribute;

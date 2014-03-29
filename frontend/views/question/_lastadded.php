@@ -28,7 +28,7 @@ use yii\grid\GridView;
 				'buttons' => [
 					'view' => function($url, $model)
 					{
-						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', str_replace('/site', '/question', $url), [
+						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $model->getUrl(), [
 									'title' => Yii::t('yii', 'View'),
 						]);
 					}

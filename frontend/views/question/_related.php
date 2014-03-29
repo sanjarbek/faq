@@ -6,12 +6,12 @@ use yii\grid\GridView;
 
 <div class="question-index panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Популярные вопросы</h3>
+		<h3 class="panel-title">Похожие вопросы</h3>
 	</div>
 
 	<?php
 	echo GridView::widget([
-		'dataProvider' => common\models\QuestionQuery::getHighRated($count),
+		'dataProvider' => common\models\QuestionQuery::getRelatedQuestions($tags, $count),
 		'layout' => '{items}',
 		'tableOptions' => [
 			'class' => 'table',
@@ -38,5 +38,4 @@ use yii\grid\GridView;
 	]);
 	?>
 	<div class="clearfix"></div>
-
 </div>

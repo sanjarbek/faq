@@ -155,4 +155,10 @@ class Question extends \yii\db\ActiveRecord
 		return implode(', ', $output);
 	}
 
+	public function getUrl()
+	{
+		$url = \yii::$app->controller->createUrl(['/question/view', 'title' => $this->title]);
+		return $url;
+	}
+
 }
