@@ -35,7 +35,6 @@ class QuestionController extends Controller
 	{
 		$searchModel = new QuestionQuery;
 		$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-//		$dataProvider = $searchModel->searchAll(Yii::$app->request->getQueryParams());
 		$posts = $dataProvider->getModels();
 		if (count($posts) == 1)
 		{

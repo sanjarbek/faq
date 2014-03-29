@@ -25,6 +25,7 @@ class m140201_054445_create_questions_table extends \yii\db\Migration
 			'status' => Schema::TYPE_SMALLINT . ' default 0',
 			'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
+			'viewed' => Schema::TYPE_INTEGER . ' default 0',
 		]);
 	}
 

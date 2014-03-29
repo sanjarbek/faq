@@ -7,7 +7,7 @@ $params = array_merge(
 return [
 	'id' => 'app-frontend',
 	'basePath' => dirname(__DIR__),
-	'defaultRoute' => 'question',
+//	'defaultRoute' => 'question',
 	'controllerNamespace' => 'frontend\controllers',
 	'language' => 'ru',
 	'components' => [

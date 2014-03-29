@@ -71,7 +71,7 @@ class QuestionQuery extends Model
 			if ($values !== null)
 				foreach ($values as $value)
 				{
-					$query->orWhere(['like', 'title', $value]);
+					$query->orWhere(['like', 'title', ' ' . $value . ' ']);
 				}
 		}
 //		$this->addCondition($query, 'id');
@@ -81,6 +81,32 @@ class QuestionQuery extends Model
 //		$this->addCondition($query, 'answer', true);
 //		$this->addCondition($query, 'created_at');
 //		$this->addCondition($query, 'updated_at');
+		return $dataProvider;
+	}
+
+	public static function getHighRated($count = 10)
+	{
+		$query = Question::find()->orderBy(['viewed' => SORT_DESC])->limit($count);
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+
+		$dataProvider->setPagination(false);
+
+		return $dataProvider;
+	}
+
+	public static function getLastAdded($count = 10)
+	{
+		$query = Question::find()->orderBy(['updated_at' => SORT_DESC])->limit($count);
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+
+		$dataProvider->setPagination(false);
+
 		return $dataProvider;
 	}
 

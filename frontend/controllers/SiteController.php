@@ -12,10 +12,10 @@ class SiteController extends Controller
 		return [
 			'access' => [
 				'class' => \yii\web\AccessControl::className(),
-				'only' => ['about'],
+				'only' => ['about', 'index'],
 				'rules' => [
 					[
-						'actions' => ['about'],
+						'actions' => ['about', 'index'],
 						'allow' => true,
 						'roles' => ['?'],
 					],
@@ -40,6 +40,11 @@ class SiteController extends Controller
 	public function actionAbout()
 	{
 		return $this->render('about');
+	}
+
+	public function actionIndex()
+	{
+		return $this->render('index');
 	}
 
 }

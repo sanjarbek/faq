@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /**
  * @var yii\web\View $this
  */
-$this->title = 'My Yii Application';
+$this->title = 'Консультант';
 ?>
 <div class="site-index">
 
@@ -17,36 +17,21 @@ $this->title = 'My Yii Application';
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h2>Heading</h2>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-					dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-					ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-					fugiat nulla pariatur.</p>
-
-				<p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-			</div>
-			<div class="col-lg-12">
-				<h2>Heading</h2>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-					dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-					ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-					fugiat nulla pariatur.</p>
-
-				<p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-			</div>
-			<div class="col-lg-12">
-				<h2>Heading</h2>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-					dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-					ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-					fugiat nulla pariatur.</p>
-
-				<p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+				<h1 style="text-align: center">Добро пожаловать на наш сайт!</h1>
+				<div class="well-sm well"><h4>Здесь Вы можете получить актуальные и полезные ответы на интересующие Вас вопросы. Для этого Вам необходимо всего лишь ввести свой вопрос или ключевые слова. Система поиска сама поможет Вам найти ответы.</h4>
+					<h4>Также Вы можете <a href="mailto:office@norma.kg">оставить свой вопрос</a> на который непременно получите ответ.</h4>
+				</div>
 			</div>
 		</div>
-
+		<div class="row">
+			<?php
+			echo $this->render('/question/_highrated', ['count' => 10]);
+			?>
+		</div>
+		<div class="row">
+			<?php
+			echo $this->render('/question/_lastadded', ['count' => 10]);
+			?>
+		</div>
 	</div>
 </div>
