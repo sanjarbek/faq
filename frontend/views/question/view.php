@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
@@ -8,8 +7,10 @@ use yii\widgets\DetailView;
  * @var common\models\Question $model
  */
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerMetaTag(['name' => 'keywords', 'content' => $model->tags], 'keywords');
+
+//$this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="question-view">
 

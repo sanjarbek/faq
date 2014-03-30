@@ -9,7 +9,6 @@ use yii\grid\GridView;
  * @var common\models\QuestionQuery $searchModel
  */
 $this->title = 'Вопросы';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <p>
 	<?php
@@ -21,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<div class="panel-heading">
 		<h3 class="panel-title">
 			<?= Html::encode($this->title) ?>
+		</h3>
 	</div>
 
 	<?php
@@ -62,9 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
 						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $model->getUrl(), [
 									'title' => Yii::t('yii', 'View'),
 						]);
-//						return Html::a('<span class="btn btn-info pull-right">Подробно...</span>', $url, [
-//									'title' => Yii::t('yii', 'View'),
-//						]);
 					}
 				],
 			],

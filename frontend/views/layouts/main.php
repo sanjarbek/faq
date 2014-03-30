@@ -17,6 +17,8 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 	<head>
 		<meta charset="<?= Yii::$app->charset ?>"/>
+		<meta name="description" content="Ответы на юридические вопросы" />
+		<meta name="authors" content="Нагаев Канат, Аматов Санжарбек" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="google-site-verification" content="eXkdQ4O6ERmoDQKJhkxNvsTdXzT39C77FdEVbyO5b-M" />
 		<title><?= Html::encode($this->title) ?></title>
