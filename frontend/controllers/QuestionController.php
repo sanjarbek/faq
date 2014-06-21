@@ -7,7 +7,7 @@ use common\models\Question;
 use common\models\QuestionQuery;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
 
 /**
  * QuestionController implements the CRUD actions for Question model.

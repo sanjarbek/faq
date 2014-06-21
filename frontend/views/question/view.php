@@ -21,7 +21,7 @@ $this->registerMetaTag(['name' => 'keywords', 'content' => $model->tags], 'keywo
 			'content:ntext',
 			'answer:ntext',
 			[
-				'name' => 'tags',
+				'attribute' => 'tags',
 				'format' => 'html',
 				'value' => $model->getTagsLinks(),
 			],

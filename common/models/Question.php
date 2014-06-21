@@ -91,7 +91,6 @@ class Question extends \yii\db\ActiveRecord
 		foreach (Tag::string2array($this->tags) as $tag)
 		{
 			$links[] = \yii\helpers\Html::a('<span style="background-color:#F5F5F5; font-size: 11px; padding: 0px 2px;">' . \yii\helpers\Html::encode($tag) . '</span>', ['question/index', 'QuestionQuery[tags]' => $tag]);
-//			$links[] = \yii\helpers\Html::a(\yii\helpers\Html::encode($tag), [ 'question/index', 'tag' => $tag], [ 'border' => '1 solid black']);
 		}
 		return $links;
 	}
@@ -150,7 +149,7 @@ class Question extends \yii\db\ActiveRecord
 		$output = [];
 		foreach ($links as $link)
 		{
-			$output[] = \yii\helpers\Html::a($link, \ yii::$app->controller->createUrl([
+			$output[] = \yii\helpers\Html::a($link, \ yii::$app->urlManager->createUrl([
 								'index',
 								'QuestionQuery[tags]' => $link,
 			]));
@@ -160,7 +159,7 @@ class Question extends \yii\db\ActiveRecord
 
 	public function getUrl()
 	{
-		$url = \yii::$app->controller->createUrl([ '/question/view'
+		$url = \yii::$app->urlManager->createUrl([ '/question/view'
 			, 'title' => $this->title]);
 		return $url;
 	}
